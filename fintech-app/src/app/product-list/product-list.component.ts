@@ -1,17 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-
-interface Product {
-  productId: number;
-  productSku: string;
-  productName: string;
-  productPrice: number;
-  productShortName: string;
-  productDescription: string;
-  productImageUrl: string;
-}
+import { Product, ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-product-list',
@@ -22,66 +12,94 @@ interface Product {
 })
 export class ProductListComponent {
   products = signal<Product[]>([]);
-  currentPage = signal(1);
-  pageSize = 18;
   loading = true;
+  error: string | null = null;
 
-  // Filter & sort states
+  // Pagination
+  currentPage = signal(1);
+  pageSize = 8;
+
+  // Filters / sort
   searchQuery = '';
-  minPrice: number = 0;
-  maxPrice: number = 2000;
   sortOption = '';
+
+  // Dynamic price range (computed from data after load)
+  priceMin = 0;
+  priceMax = 2000;
+  // Current user-selected range (dual slider)
+  minPrice = 0;
+  maxPrice = 2000;
+  minGap = 10; // minimum gap between sliders
 
   // Modal
   showModal = false;
   selectedProduct: Product | null = null;
 
-  constructor(private http: HttpClient) {
-    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-    const apiUrl = 'https://freeapi.miniprojectideas.com/api/BigBasket/GetAllProducts';
+  constructor(private productService: ProductService) {
+    this.fetchProducts();
+  }
 
-    this.http.get<{ message: string; result: boolean; data: Product[] }>(proxyUrl + apiUrl)
-      .subscribe(response => {
-        this.products.set(response.data);
+  private fetchProducts() {
+    this.loading = true;
+    this.error = null;
+
+    this.productService.getAllProducts().subscribe({
+      next: (data) => {
+        this.products.set(data || []);
+        // Compute dynamic price bounds
+        if (data && data.length) {
+          const prices = data.map(p => p.productPrice);
+          this.priceMin = Math.floor(Math.min(...prices));
+          this.priceMax = Math.ceil(Math.max(...prices));
+          this.minPrice = this.priceMin;
+          this.maxPrice = this.priceMax;
+        }
         this.loading = false;
-      });
+      },
+      error: () => {
+        this.error = 'Could not load products. Please try again.';
+        this.loading = false;
+      }
+    });
   }
 
-  totalPages() {
-    return Math.ceil(this.filteredProductsRaw().length / this.pageSize);
-  }
-
-  goToPage(page: number) {
-    if (page < 1 || page > this.totalPages()) return;
-    this.currentPage.set(page);
-  }
-
-  filteredProductsRaw() {
+  // Base filtering/sorting (before pagination)
+  private filteredProductsRaw() {
     let data = [...this.products()];
 
     // Search
-    if (this.searchQuery.trim()) {
+    const q = this.searchQuery.trim().toLowerCase();
+    if (q) {
       data = data.filter(p =>
-        p.productName.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-        p.productShortName.toLowerCase().includes(this.searchQuery.toLowerCase())
+        p.productName.toLowerCase().includes(q) ||
+        p.productShortName.toLowerCase().includes(q)
       );
     }
 
-    // Price filter
+    // Price dual-range
     data = data.filter(p => p.productPrice >= this.minPrice && p.productPrice <= this.maxPrice);
 
     // Sorting
-    if (this.sortOption === 'low-high') {
-      data.sort((a, b) => a.productPrice - b.productPrice);
-    } else if (this.sortOption === 'high-low') {
-      data.sort((a, b) => b.productPrice - a.productPrice);
-    } else if (this.sortOption === 'a-z') {
-      data.sort((a, b) => a.productName.localeCompare(b.productName));
-    } else if (this.sortOption === 'z-a') {
-      data.sort((a, b) => b.productName.localeCompare(a.productName));
+    switch (this.sortOption) {
+      case 'low-high':
+        data.sort((a, b) => a.productPrice - b.productPrice);
+        break;
+      case 'high-low':
+        data.sort((a, b) => b.productPrice - a.productPrice);
+        break;
+      case 'a-z':
+        data.sort((a, b) => a.productName.localeCompare(b.productName));
+        break;
+      case 'z-a':
+        data.sort((a, b) => b.productName.localeCompare(a.productName));
+        break;
     }
 
     return data;
+  }
+
+  totalPages() {
+    return Math.max(1, Math.ceil(this.filteredProductsRaw().length / this.pageSize));
   }
 
   filteredProducts() {
@@ -90,20 +108,51 @@ export class ProductListComponent {
     return this.filteredProductsRaw().slice(start, start + this.pageSize);
   }
 
+  goToPage(page: number) {
+    if (page < 1 || page > this.totalPages()) return;
+    this.currentPage.set(page);
+  }
+
   resetFilters() {
     this.searchQuery = '';
-    this.minPrice = 0;
-    this.maxPrice = 2000;
     this.sortOption = '';
+    this.minPrice = this.priceMin;
+    this.maxPrice = this.priceMax;
     this.currentPage.set(1);
   }
 
-  // Modal functions
+  // Dual-range guards
+  onMinInput(v: number) {
+    if (v > this.maxPrice - this.minGap) v = this.maxPrice - this.minGap;
+    if (v < this.priceMin) v = this.priceMin;
+    this.minPrice = v;
+    this.currentPage.set(1);
+  }
+  onMaxInput(v: number) {
+    if (v < this.minPrice + this.minGap) v = this.minPrice + this.minGap;
+    if (v > this.priceMax) v = this.priceMax;
+    this.maxPrice = v;
+    this.currentPage.set(1);
+  }
+
+  // Track fill style for dual range
+  rangeTrackStyle() {
+    const total = this.priceMax - this.priceMin || 1;
+    const left = ((this.minPrice - this.priceMin) / total) * 100;
+    const right = ((this.maxPrice - this.priceMin) / total) * 100;
+    return {
+      background: `linear-gradient(to right, #e5e7eb ${left}%,
+                                    #2563eb ${left}%,
+                                    #2563eb ${right}%,
+                                    #e5e7eb ${right}%)`
+    };
+  }
+
+  // Modal
   openModal(product: Product) {
     this.selectedProduct = product;
     this.showModal = true;
   }
-
   closeModal() {
     this.showModal = false;
     this.selectedProduct = null;

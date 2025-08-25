@@ -16,9 +16,8 @@ export interface Product {
 export class ProductService {
     private http = inject(HttpClient);
 
-    // If you hit CORS issues during learning, you can temporarily prepend a proxy URL.
-    // Example (uncomment at your own risk): 'https://cors-anywhere.herokuapp.com/'
-    private proxyUrl = '';
+    // If you hit CORS issues
+    private proxyUrl = 'https://cors-anywhere.herokuapp.com/';
     private apiUrl = 'https://freeapi.miniprojectideas.com/api/BigBasket/GetAllProducts';
 
     getAllProducts() {
