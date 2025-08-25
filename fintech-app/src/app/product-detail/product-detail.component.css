@@ -1,0 +1,9 @@
+img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+}
+button {
+  margin-top: 20px;
+  padding: 8px 12px;
+}

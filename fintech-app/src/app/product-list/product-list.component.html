@@ -1,0 +1,72 @@
+<div class="container">
+    <!-- Loader -->
+    <div *ngIf="loading" class="loader">
+        <div class="spinner"></div>
+        <p>Loading products...</p>
+    </div>
+
+    <aside class="sidebar" *ngIf="!loading">
+        <h2>Filters & Search</h2>
+
+        <!-- Search -->
+        <div class="filter-group">
+            <label><i class="fas fa-search"></i> Search</label>
+            <input id="search" type="text" [(ngModel)]="searchQuery" placeholder="Search products..." />
+        </div>
+
+        <!-- Price Range Filter -->
+        <div class="filter-group">
+            <label><i class="fas fa-tags"></i> Price Range</label>
+            <input type="range" [(ngModel)]="minPrice" min="0" max="2000" step="50" />
+            <span>Min: ₹{{minPrice}}</span>
+
+            <input type="range" [(ngModel)]="maxPrice" min="0" max="2000" step="50" />
+            <span>Max: ₹{{maxPrice}}</span>
+        </div>
+
+        <!-- Sort -->
+        <div class="filter-group">
+            <label><i class="fas fa-sort"></i> Sort By</label>
+            <select [(ngModel)]="sortOption">
+                <option value="">Default</option>
+                <option value="low-high">Price: Low → High</option>
+                <option value="high-low">Price: High → Low</option>
+                <option value="a-z">Name: A → Z</option>
+                <option value="z-a">Name: Z → A</option>
+            </select>
+        </div>
+
+        <button (click)="resetFilters()" class="reset-btn"><i class="fas fa-undo"></i> Reset</button>
+    </aside>
+
+    <main class="products-section" *ngIf="!loading">
+        <div class="products-grid">
+            <div *ngFor="let product of filteredProducts()" class="product-card" (click)="openModal(product)">
+                <img [src]="product.productImageUrl" alt="{{product.productName}}" />
+                <div class="product-info">
+                    <h3>{{product.productName}}</h3>
+                    <p class="price">₹{{product.productPrice}}</p>
+                    <p class="desc">{{product.productShortName}}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="pagination">
+            <button (click)="goToPage(currentPage() - 1)" [disabled]="currentPage() === 1">Prev</button>
+            <span>Page {{currentPage()}} of {{totalPages()}}</span>
+            <button (click)="goToPage(currentPage() + 1)" [disabled]="currentPage() === totalPages()">Next</button>
+        </div>
+    </main>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <span class="close-btn" (click)="closeModal()">&times;</span>
+        <h2>{{selectedProduct?.productName}}</h2>
+        <img [src]="selectedProduct?.productImageUrl" alt="Product" />
+        <p><strong>Price:</strong> ₹{{selectedProduct?.productPrice}}</p>
+        <p><strong>Description:</strong> {{selectedProduct?.productDescription || 'Dummy description of product goes
+            here.'}}</p>
+    </div>
+</div>
