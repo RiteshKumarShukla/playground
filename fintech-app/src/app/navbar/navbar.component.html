@@ -1,22 +1,23 @@
 <nav class="navbar">
   <div class="nav-container">
     <!-- Logo -->
-    <a routerLink="/" class="logo">FitNStitch</a>
+    <a routerLink="/" class="logo" (click)="closeMenu()">FitNStitch</a>
 
     <!-- Desktop Links -->
     <ul class="nav-links" [class.active]="isMenuOpen">
-      <li routerLink="/products"><a >Men</a></li>
-      <li routerLink="/products"><a >Women</a></li>
-      <li routerLink="/products"><a >Kids</a></li>
-      <li routerLink="/products"><a >Sale</a></li>
-      <li routerLink="/contact" routerLinkActive="active" (click)="closeMenu()"><a >Contact</a></li>
+      <li><a routerLink="/products" routerLinkActive="active" (click)="closeMenu()">Men</a></li>
+      <li><a routerLink="/products" routerLinkActive="active" (click)="closeMenu()">Women</a></li>
+      <li><a routerLink="/products" routerLinkActive="active" (click)="closeMenu()">Kids</a></li>
+      <li><a routerLink="/products" routerLinkActive="active" (click)="closeMenu()">Sale</a></li>
+      <li><a routerLink="/contact" routerLinkActive="active" (click)="closeMenu()">Contact</a></li>
     </ul>
 
     <!-- Right Icons -->
     <div class="nav-icons">
-      <i class="fas fa-search"></i>
-      <i class="fas fa-heart"></i>
-      <i class="fas fa-shopping-bag"></i>
+      <a routerLink="/search" (click)="closeMenu()"><i class="fas fa-search"></i></a>
+      <a routerLink="/favourites" (click)="closeMenu()"><i class="fas fa-heart"></i></a>
+      <a routerLink="/cart" (click)="closeMenu()"><i class="fas fa-shopping-bag"></i></a>
+      <a routerLink="/profile" (click)="closeMenu()"><i class="fas fa-user"></i></a>
     </div>
 
     <!-- Hamburger -->

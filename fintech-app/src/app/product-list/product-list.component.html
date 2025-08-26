@@ -52,9 +52,9 @@
         </div>
 
         <div class="pagination">
-            <button (click)="goToPage(currentPage() - 1)" [disabled]="currentPage() === 1">Prev</button>
+            <button (click)="goToPage(currentPage() - 1)" [disabled]="currentPage() === 1" class="fas fa-chevron-left">Prev</button>
             <span>Page {{currentPage()}} of {{totalPages()}}</span>
-            <button (click)="goToPage(currentPage() + 1)" [disabled]="currentPage() === totalPages()">Next</button>
+            <button (click)="goToPage(currentPage() + 1)" [disabled]="currentPage() === totalPages()" class="fas fa-chevron-right">Next</button>
         </div>
     </main>
 </div>
@@ -64,7 +64,7 @@
   <div class="modal-content" (click)="$event.stopPropagation()">
     <span class="close-btn" (click)="closeModal()">&times;</span>
     <h2>{{selectedProduct?.productName}}</h2>
-    <img [src]="selectedProduct?.productImageUrl" alt="Product" />
+    <img [src]="selectedProduct?.productImageUrl" alt="Product" class="product-image"/>
     <p><strong>Price:</strong> ₹{{selectedProduct?.productPrice}}</p>
     <p>
       <strong>Description:</strong>

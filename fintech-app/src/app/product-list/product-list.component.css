@@ -202,7 +202,10 @@ button {
   font-size: 22px;
   cursor: pointer;
 }
-
+.product-image{
+  max-height: 300px !important;
+  object-fit: cover;
+}
 /* Sidebar filters */
 .filter-group input[type="range"] {
   width: 100%;

@@ -32,10 +32,10 @@
     <!-- Right: Contact Form -->
     <div class="contact-form">
       <h2>Send Us a Message</h2>
-      <form>
-        <input type="text" placeholder="Your Name" required />
-        <input type="email" placeholder="Your Email" required />
-        <textarea rows="5" placeholder="Your Message" required></textarea>
+      <form (ngSubmit)="onSubmit()">
+        <input type="text" placeholder="Your Name" name="name" ngModel required />
+        <input type="email" placeholder="Your Email" name="email" ngModel required />
+        <textarea rows="5" placeholder="Your Message" name="message" ngModel required></textarea>
         <button type="submit">Send Message</button>
       </form>
     </div>
