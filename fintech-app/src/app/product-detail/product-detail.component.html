@@ -1,1 +1,85 @@
-<p>product-detail works!</p>
+<div class="product-details-container">
+    <!-- Left Side: Gallery -->
+    <div class="gallery">
+        <!-- Vertical Thumbnails -->
+        <div class="thumbnails">
+            <img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/36f060ff-1ec9-40d4-a384-370a5faaeaca/ZM+GP+CHALLENGE+PRO+HC+PRM+USO.png"
+                alt="Product Thumbnail"
+                (click)="mainImage='https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/36f060ff-1ec9-40d4-a384-370a5faaeaca/ZM+GP+CHALLENGE+PRO+HC+PRM+USO.png'">
+            <img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/611d9968-e17b-427d-8cde-e9385db900df/ZM+GP+CHALLENGE+PRO+HC+PRM+USO.png"
+                alt="Product Thumbnail"
+                (click)="mainImage='https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/611d9968-e17b-427d-8cde-e9385db900df/ZM+GP+CHALLENGE+PRO+HC+PRM+USO.png'">
+            <img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/d36ec839-de31-4cae-91eb-a1391265c847/ZM+GP+CHALLENGE+PRO+HC+PRM+USO.png"
+                alt="Product Thumbnail"
+                (click)="mainImage='https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/d36ec839-de31-4cae-91eb-a1391265c847/ZM+GP+CHALLENGE+PRO+HC+PRM+USO.png'">
+            <img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/36f060ff-1ec9-40d4-a384-370a5faaeaca/ZM+GP+CHALLENGE+PRO+HC+PRM+USO.png"
+                alt="Product Thumbnail"
+                (click)="mainImage='https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/36f060ff-1ec9-40d4-a384-370a5faaeaca/ZM+GP+CHALLENGE+PRO+HC+PRM+USO.png'">
+            <img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/611d9968-e17b-427d-8cde-e9385db900df/ZM+GP+CHALLENGE+PRO+HC+PRM+USO.png"
+                alt="Product Thumbnail"
+                (click)="mainImage='https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/611d9968-e17b-427d-8cde-e9385db900df/ZM+GP+CHALLENGE+PRO+HC+PRM+USO.png'">
+            <img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/d36ec839-de31-4cae-91eb-a1391265c847/ZM+GP+CHALLENGE+PRO+HC+PRM+USO.png"
+                alt="Product Thumbnail"
+                (click)="mainImage='https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/d36ec839-de31-4cae-91eb-a1391265c847/ZM+GP+CHALLENGE+PRO+HC+PRM+USO.png'">
+        </div>
+
+        <!-- Main Image -->
+        <div class="main-image">
+            <img [src]="mainImage || 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/36f060ff-1ec9-40d4-a384-370a5faaeaca/ZM+GP+CHALLENGE+PRO+HC+PRM+USO.png'"
+                alt="Main Product" />
+        </div>
+    </div>
+
+    <!-- Right Side: Product Info -->
+    <div class="details">
+        <h1>Nike GP Challenge Pro Premium</h1>
+        <p class="price">₹10,795</p>
+        <p class="description">
+            When the late-summer daylight drops and the city that doesn't stop starts to stir, lace up in this GP Challenge Pro. Designed for baseline back-and-forth bolts and dashes to the net, it has the needed speed and stability to help your game go the distance—even in the city that never sleeps.
+        </p>
+
+        <!-- Sizes -->
+        <div class="size-selector">
+            <div class="header">
+                <h3>Select Size</h3>
+                <span class="size-guide">Size Guide</span>
+            </div>
+            <div class="sizes">
+                <button (click)="selectedSize='UK 6'" [class.selected]="selectedSize==='UK 6'">UK 6</button>
+                <button (click)="selectedSize='UK 7'" [class.selected]="selectedSize==='UK 7'">UK 7</button>
+                <button (click)="selectedSize='UK 8'" [class.selected]="selectedSize==='UK 8'">UK 8</button>
+                <button (click)="selectedSize='UK 9'" [class.selected]="selectedSize==='UK 9'" disabled>UK 9</button>
+                <button (click)="selectedSize='UK 10'" [class.selected]="selectedSize==='UK 10'">UK 10</button>
+            </div>
+        </div>
+
+        <!-- Colors -->
+        <div class="color-selector">
+            <h3>Select Color</h3>
+            <div class="colors">
+                <div class="color-swatch" style="background-color: #FF4500;" (click)="selectedColor='Orange'"
+                    [class.selected]="selectedColor==='Orange'"></div>
+                <div class="color-swatch" style="background-color: #000000;" (click)="selectedColor='Black'"
+                    [class.selected]="selectedColor==='Black'"></div>
+                <div class="color-swatch" style="background-color: #FFFFFF; border: 1px solid #ccc;"
+                    (click)="selectedColor='White'" [class.selected]="selectedColor==='White'"></div>
+            </div>
+            <p *ngIf="selectedColor">Selected: {{ selectedColor }}</p>
+        </div>
+
+        <!-- Extra Info -->
+        <div class="extra-details">
+            <h3>Product Details</h3>
+            <p>
+                - Lightweight breathable mesh upper <br />
+                - Padded collar for ankle comfort <br />
+                - Durable outsole for hard courts
+            </p>
+        </div>
+        <br>
+        <button class="add-to-bag-btn">Add to Bag</button>
+        <!-- <br>
+        <br> -->
+        <button class="add-to-bag-btn1">Buy Now</button>
+    </div>
+</div>

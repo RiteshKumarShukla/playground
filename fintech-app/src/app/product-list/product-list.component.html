@@ -61,12 +61,18 @@
 
 <!-- Modal -->
 <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-        <span class="close-btn" (click)="closeModal()">&times;</span>
-        <h2>{{selectedProduct?.productName}}</h2>
-        <img [src]="selectedProduct?.productImageUrl" alt="Product" />
-        <p><strong>Price:</strong> ₹{{selectedProduct?.productPrice}}</p>
-        <p><strong>Description:</strong> {{selectedProduct?.productDescription || 'Dummy description of product goes
-            here.'}}</p>
-    </div>
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <span class="close-btn" (click)="closeModal()">&times;</span>
+    <h2>{{selectedProduct?.productName}}</h2>
+    <img [src]="selectedProduct?.productImageUrl" alt="Product" />
+    <p><strong>Price:</strong> ₹{{selectedProduct?.productPrice}}</p>
+    <p>
+      <strong>Description:</strong>
+      {{selectedProduct?.productDescription || 'Dummy description of product goes here.'}}
+    </p>
+
+    <!-- ✅ New Button -->
+    <button class="add-to-bag-btn" (click)="goToDetails(selectedProduct)">View Details</button>
+    <!-- <h3>Helpful Links</h3> -->
+  </div>
 </div>

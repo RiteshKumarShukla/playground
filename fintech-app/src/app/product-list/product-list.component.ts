@@ -2,7 +2,7 @@ import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Product, ProductService } from '../services/product.service';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-product-list',
   standalone: true,
@@ -17,7 +17,7 @@ export class ProductListComponent {
 
   // Pagination
   currentPage = signal(1);
-  pageSize = 8;
+  pageSize = 18;
 
   // Filters / sort
   searchQuery = '';
@@ -35,7 +35,7 @@ export class ProductListComponent {
   showModal = false;
   selectedProduct: Product | null = null;
 
-  constructor(private productService: ProductService) {
+  constructor(private router: Router, private productService: ProductService) {
     this.fetchProducts();
   }
 
@@ -156,5 +156,9 @@ export class ProductListComponent {
   closeModal() {
     this.showModal = false;
     this.selectedProduct = null;
+  }
+  goToDetails(product: any) {
+    this.closeModal(); // close modal first
+    this.router.navigate(['/product', product.productId]); 
   }
 }

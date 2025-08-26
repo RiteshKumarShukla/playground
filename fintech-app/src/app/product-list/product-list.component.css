@@ -209,4 +209,18 @@ button {
   margin: 5px 0;
 }
 
-/* Keep the previous sidebar, products-grid, pagination styles from before */
+.add-to-bag-btn {
+  background: black;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  transition: background 0.3s;
+}
+
+.add-to-bag-btn:hover {
+  background: #333;
+}

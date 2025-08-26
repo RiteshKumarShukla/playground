@@ -1,0 +1,29 @@
+<nav class="navbar">
+  <div class="nav-container">
+    <!-- Logo -->
+    <a routerLink="/" class="logo">FitNStitch</a>
+
+    <!-- Desktop Links -->
+    <ul class="nav-links" [class.active]="isMenuOpen">
+      <li routerLink="/products"><a >Men</a></li>
+      <li routerLink="/products"><a >Women</a></li>
+      <li routerLink="/products"><a >Kids</a></li>
+      <li routerLink="/products"><a >Sale</a></li>
+      <li routerLink="/contact" routerLinkActive="active" (click)="closeMenu()"><a >Contact</a></li>
+    </ul>
+
+    <!-- Right Icons -->
+    <div class="nav-icons">
+      <i class="fas fa-search"></i>
+      <i class="fas fa-heart"></i>
+      <i class="fas fa-shopping-bag"></i>
+    </div>
+
+    <!-- Hamburger -->
+    <div class="hamburger" (click)="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</nav>
