@@ -1,0 +1,53 @@
+<section class="profile-page">
+  <!-- Profile Overview -->
+  <div class="profile-header">
+    <img src="https://i.pravatar.cc/150?img=12" alt="Profile" class="profile-pic" />
+    <div class="profile-info">
+      <h2>{{ user.name }}</h2>
+      <p>{{ user.email }}</p>
+      <p>{{ user.phone }}</p>
+      <small>Member since {{ user.joined }}</small>
+      <br>
+      <button class="edit-btn"><i class="fas fa-edit"></i> Edit Profile</button>
+    </div>
+  </div>
+
+  <!-- Recent Orders -->
+  <div class="orders-section">
+    <h3>Recent Orders</h3>
+    <table class="orders-table">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Item</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of recentOrders">
+          <td>{{ order.id }}</td>
+          <td>{{ order.item }}</td>
+          <td>{{ order.date }}</td>
+          <td>
+            <span class="status">
+              {{ order.status }}
+            </span>
+          </td>
+          <td>{{ order.amount }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Account Details -->
+  <div class="account-section">
+    <h3>Account Details</h3>
+    <ul>
+      <li><i class="fas fa-map-marker-alt"></i> Address: {{ user.address }}</li>
+      <li><i class="fas fa-credit-card"></i> Payment Method: **** **** **** 1234</li>
+      <li><i class="fas fa-shield-alt"></i> Security Settings</li>
+    </ul>
+  </div>
+</section>

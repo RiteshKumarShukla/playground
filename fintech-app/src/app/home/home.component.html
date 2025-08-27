@@ -6,8 +6,8 @@
         <h1>FitNStich — Move Better, Look Better</h1>
         <p>Premium activewear & footwear for every move. Shop new arrivals & bestsellers.</p>
         <div class="hero-ctas">
-          <a class="btn primary" routerLink="/shop">Shop Men</a>
-          <a class="btn outline" routerLink="/shop?gender=women">Shop Women</a>
+          <a class="btn primary" routerLink="/products">Shop For Men</a>
+          <a class="btn outline" routerLink="/products">Shop For Women</a>
         </div>
       </div>
     </div>
@@ -26,7 +26,7 @@
           <img [src]="c.img" [alt]="c.title" />
           <div class="cat-info">
             <h3>{{ c.title }}</h3>
-            <a class="cat-link" routerLink="/shop">{{ 'Shop ' + c.title }}</a>
+            <a class="cat-link" routerLink="/products">{{ 'Shop ' + c.title }}</a>
           </div>
         </div>
       </ng-container>
@@ -40,7 +40,7 @@
         <h3>Summer Drop — Up to 40% off</h3>
         <p>Limited time only. Free shipping on orders above ₹2,000.</p>
       </div>
-      <a class="btn ghost" routerLink="/offers">Explore Offers</a>
+      <a class="btn ghost" routerLink="/products">Explore Offers</a>
     </div>
   </section>
 

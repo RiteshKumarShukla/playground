@@ -4,11 +4,13 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { ContactComponent } from './contact/contact.component';
+import { ProfileComponent } from './profile/profile.component';
+import { CartComponent } from './cart/cart.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, FooterComponent, HomeComponent, ContactComponent],
+  imports: [RouterOutlet, NavbarComponent, FooterComponent, HomeComponent, ContactComponent, ProfileComponent, CartComponent],
   templateUrl: './app.component.html',
 })
 export class AppComponent {}

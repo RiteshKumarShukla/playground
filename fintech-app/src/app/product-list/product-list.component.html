@@ -17,10 +17,10 @@
         <!-- Price Range Filter -->
         <div class="filter-group">
             <label><i class="fas fa-tags"></i> Price Range</label>
-            <input type="range" [(ngModel)]="minPrice" min="0" max="2000" step="50" />
+            <input type="range" [(ngModel)]="minPrice" min="0" max="2000" step="50" class="range"/>
             <span>Min: ₹{{minPrice}}</span>
 
-            <input type="range" [(ngModel)]="maxPrice" min="0" max="2000" step="50" />
+            <input type="range" [(ngModel)]="maxPrice" min="0" max="2000" step="50" class="range"/>
             <span>Max: ₹{{maxPrice}}</span>
         </div>
 
@@ -52,9 +52,9 @@
         </div>
 
         <div class="pagination">
-            <button (click)="goToPage(currentPage() - 1)" [disabled]="currentPage() === 1" class="fas fa-chevron-left">Prev</button>
+            <button (click)="goToPage(currentPage() - 1)" [disabled]="currentPage() === 1" class="fas fa-chevron-left button-bg">Prev</button>
             <span>Page {{currentPage()}} of {{totalPages()}}</span>
-            <button (click)="goToPage(currentPage() + 1)" [disabled]="currentPage() === totalPages()" class="fas fa-chevron-right">Next</button>
+            <button (click)="goToPage(currentPage() + 1)" [disabled]="currentPage() === totalPages()" class="fas fa-chevron-right button-bg">Next</button>
         </div>
     </main>
 </div>
