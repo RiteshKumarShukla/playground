@@ -1,0 +1,45 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="logo">🛒 Fintech Shop</div>
+
+    <h2 *ngIf="isLoginMode">Welcome Back 👋</h2>
+    <h2 *ngIf="!isLoginMode">Join Us ✨</h2>
+
+    <p *ngIf="isLoginMode">Login to your account</p>
+    <p *ngIf="!isLoginMode">Create your account</p>
+
+    <form (ngSubmit)="onSubmit()">
+      <input 
+        type="email" 
+        placeholder="Enter Email" 
+        [(ngModel)]="email" 
+        name="email" 
+        required />
+
+      <input 
+        type="password" 
+        placeholder="Enter Password" 
+        [(ngModel)]="password" 
+        name="password" 
+        required />
+
+      <button type="submit">
+        {{ isLoginMode ? 'Login' : 'Sign Up' }}
+      </button>
+
+      <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+      <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
+    </form>
+
+    <div class="toggle-text">
+      <p *ngIf="isLoginMode">
+        Don’t have an account?
+        <a href="#" (click)="toggleMode()">Sign Up</a>
+      </p>
+      <p *ngIf="!isLoginMode">
+        Already have an account?
+        <a href="#" (click)="toggleMode()">Login</a>
+      </p>
+    </div>
+  </div>
+</div>

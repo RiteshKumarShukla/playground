@@ -1,0 +1,118 @@
+/* Fullscreen center layout */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #ff6f61, #ff9671, #ffc1a1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  animation: fadeBg 10s ease-in-out infinite alternate;
+}
+
+/* Card box */
+.auth-card {
+  background: #fff;
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  width: 370px;
+  text-align: center;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Logo */
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #ff6f61;
+}
+
+/* Headings */
+.auth-card h2 {
+  margin-bottom: 0.5rem;
+  color: #ff6f61;
+  font-weight: bold;
+}
+
+.auth-card p {
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+/* Inputs */
+.auth-card input {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border: 2px solid #ff6f61;
+  border-radius: 12px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.auth-card input:focus {
+  border-color: #ff9671;
+  box-shadow: 0 0 8px rgba(255, 111, 97, 0.4);
+}
+
+/* Button */
+.auth-card button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  background: #ff6f61;
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.auth-card button:hover {
+  background: #e85a50;
+  transform: scale(1.05);
+}
+
+/* Error + success */
+.error {
+  margin-top: 10px;
+  color: #e63946;
+  font-size: 14px;
+}
+
+.success {
+  margin-top: 10px;
+  color: #2a9d8f;
+  font-size: 14px;
+}
+
+/* Toggle text */
+.toggle-text {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.toggle-text a {
+  color: #ff6f61;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.toggle-text a:hover {
+  text-decoration: underline;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeBg {
+  from { background: linear-gradient(135deg, #ff6f61, #ff9671, #ffc1a1); }
+  to   { background: linear-gradient(135deg, #ffc1a1, #ff9671, #ff6f61); }
+}

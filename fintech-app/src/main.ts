@@ -10,7 +10,8 @@ import { ContactComponent } from './app/contact/contact.component';
 import { CartComponent } from './app/cart/cart.component';
 // import { FavouritesComponent } from './app/favourites/favourites.component';
 import { ProfileComponent } from './app/profile/profile.component';
-
+import {LoginComponent} from './app/login/login.component';
+import {DashboardComponent } from './app/dashboard/dashboard.component';
 bootstrapApplication(AppComponent, {
   providers: [
     provideHttpClient(),
@@ -21,7 +22,9 @@ bootstrapApplication(AppComponent, {
       { path: 'contact', component: ContactComponent },
       { path: 'cart', component: CartComponent },
       // { path: 'favourites', component: FavouritesComponent },
-      { path: 'profile', component: ProfileComponent }
+      { path: 'profile', component: ProfileComponent },
+      { path: 'login', component: LoginComponent },
+      { path: 'dashboard', component: DashboardComponent }
     ], withComponentInputBinding())
   ]
 });
